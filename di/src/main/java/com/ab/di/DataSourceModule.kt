@@ -1,4 +1,4 @@
-package com.ab.data.di
+package com.ab.di
 
 import com.ab.data.datasource.subtask.SubTaskLocalDataSource
 import com.ab.data.datasource.subtask.SubTaskLocalDataSourceImpl

@@ -19,7 +19,7 @@ interface TaskDao {
     suspend fun getById(id: Int): TaskEntity?
 
     @Upsert
-    suspend fun upsert(task: TaskEntity)
+    suspend fun upsert(task: TaskEntity): Long
 
     @Delete
     suspend fun delete(task: TaskEntity)

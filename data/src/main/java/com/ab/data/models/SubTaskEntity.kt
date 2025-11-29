@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
 data class SubTaskEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val taskId: Int,
+    val taskId: Long,
     val title: String,
     val isCompleted: Boolean = false
 )

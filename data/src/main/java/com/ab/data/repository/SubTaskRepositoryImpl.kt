@@ -4,6 +4,7 @@ import com.ab.data.datasource.subtask.SubTaskLocalDataSource
 import com.ab.data.datasource.task.TaskLocalDataSource
 import com.ab.data.mapper.task.toDomain
 import com.ab.data.mapper.task.toDomainList
+import com.ab.data.mapper.task.toEntitiesList
 import com.ab.data.mapper.task.toEntity
 import com.ab.data.models.SubTaskEntity
 import com.ab.data.models.TaskEntity
@@ -34,6 +35,11 @@ class SubTaskRepositoryImpl @Inject constructor(
     override suspend fun add(task: SubTaskModel) {
         val entity = task.toEntity()
         subTaskLocalDataSource.insert(entity)
+    }
+
+    override suspend fun addList(tasks: List<SubTaskModel>) {
+        val entities = tasks.toEntitiesList()
+        subTaskLocalDataSource.insert(entities)
     }
 
     override suspend fun edit(task: SubTaskModel) {

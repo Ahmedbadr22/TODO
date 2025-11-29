@@ -24,8 +24,8 @@ class TaskLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun insert(task: TaskEntity) {
-        withContext(Dispatchers.IO) {
+    override suspend fun insert(task: TaskEntity): Long {
+        return withContext(Dispatchers.IO) {
             taskDao.upsert(task)
         }
     }

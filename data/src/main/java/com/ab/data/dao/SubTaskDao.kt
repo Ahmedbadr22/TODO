@@ -18,6 +18,9 @@ interface SubTaskDao {
     @Upsert
     suspend fun upsert(subTask: SubTaskEntity)
 
+    @Upsert
+    suspend fun upsert(subTasks: List<SubTaskEntity>)
+
     @Delete
     suspend fun delete(subTask: SubTaskEntity)
 }

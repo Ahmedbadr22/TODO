@@ -21,7 +21,7 @@ class TaskRepositoryImpl @Inject constructor(
             .toDomainList()
     }
 
-    override suspend fun listAllAsFlow(): Flow<List<TaskModel>> {
+    override fun listAllAsFlow(): Flow<List<TaskModel>> {
         return taskLocalDataSource
             .listAllAsFlow()
             .map(List<TaskEntity>::toDomainList)
@@ -34,9 +34,9 @@ class TaskRepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun add(task: TaskModel) {
+    override suspend fun add(task: TaskModel): Long {
         val entity = task.toEntity()
-        taskLocalDataSource.insert(entity)
+        return taskLocalDataSource.insert(entity)
     }
 
     override suspend fun edit(task: TaskModel) {

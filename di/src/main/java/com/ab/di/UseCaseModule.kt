@@ -1,4 +1,4 @@
-package com.ab.domain.di
+package com.ab.di
 
 import com.ab.domain.respository.SubTaskRepository
 import com.ab.domain.respository.TaskRepository

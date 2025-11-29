@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">تودو</string>
+    <string name="title">العنوان</string>
+    <string name="description">الوصف</string>
+    <string name="add_task">اضف مهمه</string>
+    <string name="sub_tasks">مهمات فرعية</string>
+    <string name="add">اضف</string>
+    <string name="enter_title">ادخل عنوان</string>
+    <string name="save">احفظ</string>
+    <string name="added_successfully">تم اضافتها بنجاح</string>
+    <string name="no_data_found">لا يوجد مهام</string>
 </resources>

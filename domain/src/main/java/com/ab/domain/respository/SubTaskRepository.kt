@@ -7,6 +7,7 @@ interface SubTaskRepository {
     suspend fun listByTaskId(id: Int): List<SubTaskModel>
     fun listByTaskIdAsFlow(id: Int): Flow<List<SubTaskModel>>
     suspend fun add(task: SubTaskModel)
+    suspend fun addList(tasks: List<SubTaskModel>)
     suspend fun edit(task: SubTaskModel)
     suspend fun delete(task: SubTaskModel)
 }

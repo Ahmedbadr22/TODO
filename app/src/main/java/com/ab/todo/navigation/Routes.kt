@@ -6,4 +6,7 @@ import kotlinx.serialization.Serializable
 data object TaskListRoute
 
 @Serializable
+data object AddTaskRoute
+
+@Serializable
 data class TaskDetailRoute(val id: Int)

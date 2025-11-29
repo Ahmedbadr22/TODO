@@ -1,4 +1,4 @@
-package com.ab.data.di
+package com.ab.di
 
 import com.ab.data.repository.SubTaskRepositoryImpl
 import com.ab.data.repository.TaskRepositoryImpl
@@ -12,12 +12,17 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface RepositoryModule  {
-    @Binds
-    @Singleton
-    fun bindTaskRepository(impl: TaskRepositoryImpl): TaskRepository
+abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindSubTaskRepository(impl: SubTaskRepositoryImpl): SubTaskRepository
+    abstract fun bindTaskRepository(
+        impl: TaskRepositoryImpl
+    ): TaskRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindSubTaskRepository(
+        impl: SubTaskRepositoryImpl
+    ): SubTaskRepository
 }

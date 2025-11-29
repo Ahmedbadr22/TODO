@@ -25,6 +25,12 @@ class SubTaskLocalDataSourceImpl @Inject constructor(
         }
     }
 
+    override suspend fun insert(subTasks: List<SubTaskEntity>) {
+        withContext(Dispatchers.IO) {
+            subTaskDao.upsert(subTasks)
+        }
+    }
+
     override suspend fun update(subTask: SubTaskEntity) {
         withContext(Dispatchers.IO) {
             subTaskDao.upsert(subTask)

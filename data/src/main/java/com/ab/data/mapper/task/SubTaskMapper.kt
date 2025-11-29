@@ -10,6 +10,8 @@ fun SubTaskModel.toEntity(): SubTaskEntity = SubTaskEntity(
     taskId = taskId
 )
 
+fun List<SubTaskModel>.toEntitiesList(): List<SubTaskEntity> = map(SubTaskModel::toEntity)
+
 fun SubTaskEntity.toDomain(): SubTaskModel = SubTaskModel(
     id = id,
     title = title,
