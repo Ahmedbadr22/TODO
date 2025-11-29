@@ -7,17 +7,17 @@ import com.ab.data.datasource.task.TaskLocalDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.android.scopes.ViewModelScoped
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 interface DataSourceModule  {
     @Binds
-    @ViewModelScoped
+    @Singleton
     fun bindTaskLocalDataSource(impl: TaskLocalDataSourceImpl): TaskLocalDataSource
 
     @Binds
-    @ViewModelScoped
+    @Singleton
     fun bindSubTaskLocalDataSource(impl: SubTaskLocalDataSourceImpl): SubTaskLocalDataSource
 }
