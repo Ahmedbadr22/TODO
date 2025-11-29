@@ -1,9 +1,11 @@
 package com.ab.data.datasource.task
 
 import com.ab.data.models.TaskEntity
+import kotlinx.coroutines.flow.Flow
 
 interface TaskLocalDataSource {
     suspend fun listAll(): List<TaskEntity>
+    fun listAllAsFlow(): Flow<List<TaskEntity>>
     suspend fun getById(id: Int): TaskEntity?
     suspend fun insert(task: TaskEntity)
     suspend fun update(task: TaskEntity)
