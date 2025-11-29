@@ -16,9 +16,8 @@ class SubTaskLocalDataSourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun listAllByTaskIdAsFlow(taskId: Int): Flow<List<SubTaskEntity>> =
+    override  fun listAllByTaskIdAsFlow(taskId: Int): Flow<List<SubTaskEntity>> =
         subTaskDao.listAllByTaskIdAsFlow(taskId)
-
 
     override suspend fun insert(subTask: SubTaskEntity) {
         withContext(Dispatchers.IO) {
