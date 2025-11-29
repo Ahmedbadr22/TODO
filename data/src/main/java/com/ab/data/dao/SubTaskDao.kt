@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface SubTaskDao {
     @Query("SELECT * FROM sub_task_table WHERE taskId = :taskId")
-    suspend fun listAllByTaskId(taskId: Int): List<SubTaskEntity>
+    suspend fun listAllByTaskId(taskId: Long): List<SubTaskEntity>
 
     @Query("SELECT * FROM sub_task_table WHERE taskId = :taskId")
-    fun listAllByTaskIdAsFlow(taskId: Int): Flow<List<SubTaskEntity>>
+    fun listAllByTaskIdAsFlow(taskId: Long): Flow<List<SubTaskEntity>>
 
     @Upsert
     suspend fun upsert(subTask: SubTaskEntity)

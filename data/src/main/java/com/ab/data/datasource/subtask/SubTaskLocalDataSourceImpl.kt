@@ -10,13 +10,13 @@ import javax.inject.Inject
 class SubTaskLocalDataSourceImpl @Inject constructor(
     private val subTaskDao: SubTaskDao
 ) : SubTaskLocalDataSource {
-    override suspend fun listAllByTaskId(taskId: Int): List<SubTaskEntity> {
+    override suspend fun listAllByTaskId(taskId: Long): List<SubTaskEntity> {
         return withContext(Dispatchers.IO) {
             subTaskDao.listAllByTaskId(taskId)
         }
     }
 
-    override  fun listAllByTaskIdAsFlow(taskId: Int): Flow<List<SubTaskEntity>> =
+    override  fun listAllByTaskIdAsFlow(taskId: Long): Flow<List<SubTaskEntity>> =
         subTaskDao.listAllByTaskIdAsFlow(taskId)
 
     override suspend fun insert(subTask: SubTaskEntity) {

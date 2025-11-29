@@ -20,13 +20,13 @@ import javax.inject.Inject
 class SubTaskRepositoryImpl @Inject constructor(
     private val subTaskLocalDataSource: SubTaskLocalDataSource,
 ) : SubTaskRepository {
-    override suspend fun listByTaskId(id: Int): List<SubTaskModel> {
+    override suspend fun listByTaskId(id: Long): List<SubTaskModel> {
         return subTaskLocalDataSource
             .listAllByTaskId(id)
             .toDomainList()
     }
 
-    override fun listByTaskIdAsFlow(id: Int): Flow<List<SubTaskModel>> {
+    override fun listByTaskIdAsFlow(id: Long): Flow<List<SubTaskModel>> {
         return subTaskLocalDataSource
             .listAllByTaskIdAsFlow(id)
             .map(List<SubTaskEntity>::toDomainList)

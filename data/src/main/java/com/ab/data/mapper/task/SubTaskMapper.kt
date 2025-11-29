@@ -5,6 +5,7 @@ import com.ab.data.models.TaskEntity
 import com.ab.domain.model.SubTaskModel
 
 fun SubTaskModel.toEntity(): SubTaskEntity = SubTaskEntity(
+    id = id,
     title = title,
     isCompleted = isCompleted,
     taskId = taskId

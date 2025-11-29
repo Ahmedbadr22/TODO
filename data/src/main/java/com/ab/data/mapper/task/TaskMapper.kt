@@ -4,6 +4,7 @@ import com.ab.data.models.TaskEntity
 import com.ab.domain.model.TaskModel
 
 fun TaskModel.toEntity(): TaskEntity = TaskEntity(
+    id = id,
     title = title,
     description = description,
     isCompleted = isCompleted,

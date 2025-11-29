@@ -18,7 +18,7 @@ class TaskLocalDataSourceImpl @Inject constructor(
 
     override fun listAllAsFlow(): Flow<List<TaskEntity>> = taskDao.listAllAsFlow()
 
-    override suspend fun getById(id: Int): TaskEntity? {
+    override suspend fun getById(id: Long): TaskEntity? {
         return withContext(Dispatchers.IO) {
             taskDao.getById(id)
         }

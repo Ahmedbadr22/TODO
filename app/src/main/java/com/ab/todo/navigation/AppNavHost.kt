@@ -9,6 +9,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.ab.todo.ui.screen.addtask.AddTaskScreen
 import com.ab.todo.ui.screen.addtask.AddTaskViewModel
+import com.ab.todo.ui.screen.taskdetail.TaskDetailScreen
+import com.ab.todo.ui.screen.taskdetail.TaskDetailViewModel
 import com.ab.todo.ui.screen.tasklist.TaskListScreen
 import com.ab.todo.ui.screen.tasklist.TaskListViewModel
 
@@ -27,8 +29,13 @@ fun AppNavHost(
             TaskListScreen(
                 uiState = uiState,
                 onEvent = viewModel::onEvent,
-                effect = viewModel.effect,
-                onNavigateBack = navController::navigateUp
+                uiEffect = viewModel.effect,
+                onNavigateToAddTask = {
+                    navController.navigate(AddTaskRoute)
+                },
+                onNavigateToTaskDetail = {
+                    navController.navigate(TaskDetailRoute(it))
+                }
             )
         }
 
@@ -45,7 +52,15 @@ fun AppNavHost(
         }
 
         composable<TaskDetailRoute> {
+            val viewModel = hiltViewModel<TaskDetailViewModel>()
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
+            TaskDetailScreen(
+                uiState = uiState,
+                onEvent = viewModel::onEvent,
+                uiEffect = viewModel.effect,
+                onNavigateBack = navController::navigateUp
+            )
         }
     }
 }

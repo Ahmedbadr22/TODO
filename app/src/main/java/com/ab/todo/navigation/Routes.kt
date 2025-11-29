@@ -9,4 +9,4 @@ data object TaskListRoute
 data object AddTaskRoute
 
 @Serializable
-data class TaskDetailRoute(val id: Int)
+data class TaskDetailRoute(val id: Long)

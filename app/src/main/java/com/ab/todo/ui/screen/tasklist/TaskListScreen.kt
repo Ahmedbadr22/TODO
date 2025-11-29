@@ -2,6 +2,7 @@ package com.ab.todo.ui.screen.tasklist
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,6 +27,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -38,6 +40,7 @@ import com.ab.domain.model.TaskModel
 import com.ab.todo.R
 import com.ab.todo.ui.theme.TODOTheme
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.emptyFlow
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,10 +48,20 @@ import kotlinx.coroutines.flow.emptyFlow
 fun TaskListScreen(
     uiState: TaskListUiState,
     onEvent: (TaskListUiEvent) -> Unit,
-    effect: Flow<TaskListUiEffect>,
-    onNavigateBack: () -> Unit
+    uiEffect: Flow<TaskListUiEffect>,
+    onNavigateToAddTask: () -> Unit,
+    onNavigateToTaskDetail: (id: Long) -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+
+    LaunchedEffect(uiEffect) {
+        uiEffect.collectLatest { effect ->
+            when (effect) {
+                TaskListUiEffect.OnNavigateToAddTask -> onNavigateToAddTask()
+                is TaskListUiEffect.OnNavigateToTaskDetail -> onNavigateToTaskDetail(effect.id)
+            }
+        }
+    }
 
     Scaffold(
         modifier = Modifier
@@ -74,16 +87,23 @@ fun TaskListScreen(
             )
         },
     ) { innerPadding ->
-        when(uiState) {
+        when (uiState) {
             is TaskListUiState.Content -> {
                 TaskList(
                     modifier = Modifier
                         .padding(top = 16.dp)
                         .fillMaxSize()
                         .padding(innerPadding),
-                    tasks = uiState.tasks
+                    tasks = uiState.tasks,
+                    onDeleteTaskClick = { taskModel ->
+                        onEvent(TaskListUiEvent.DeleteTaskClick(taskModel))
+                    },
+                    onNavigateToTaskDetail = { id ->
+                        onEvent(TaskListUiEvent.NavigateToTaskDetail(id))
+                    }
                 )
             }
+
             TaskListUiState.Empty -> EmptyData()
         }
 
@@ -93,7 +113,9 @@ fun TaskListScreen(
 @Composable
 fun TaskList(
     modifier: Modifier,
-    tasks: List<TaskModel>
+    tasks: List<TaskModel>,
+    onDeleteTaskClick: (taskModel: TaskModel) -> Unit,
+    onNavigateToTaskDetail: (id: Long) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -103,6 +125,9 @@ fun TaskList(
         items(tasks, key = { it.id }) { task ->
             Row(
                 modifier = Modifier
+                    .clickable {
+                        onNavigateToTaskDetail(task.id)
+                    }
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(10.dp))
                     .background(color = MaterialTheme.colorScheme.primary.copy(alpha = 0.05f))
@@ -134,7 +159,7 @@ fun TaskList(
                 }
                 IconButton(
                     onClick = {
-
+                        onDeleteTaskClick(task)
                     },
                     colors = IconButtonDefaults.iconButtonColors(
                         contentColor = MaterialTheme.colorScheme.error
@@ -182,8 +207,9 @@ private fun TaskListScreenPreview() {
         TaskListScreen(
             uiState = TaskListUiState.Empty,
             onEvent = {},
-            effect = emptyFlow(),
-            onNavigateBack = {}
+            uiEffect = emptyFlow(),
+            onNavigateToAddTask = {},
+            onNavigateToTaskDetail = {},
         )
     }
 }

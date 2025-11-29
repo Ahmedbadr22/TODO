@@ -27,7 +27,7 @@ class TaskRepositoryImpl @Inject constructor(
             .map(List<TaskEntity>::toDomainList)
     }
 
-    override suspend fun getById(id: Int): TaskModel? {
+    override suspend fun getById(id: Long): TaskModel? {
         return taskLocalDataSource
             .getById(id)
             ?.toDomain()

@@ -16,7 +16,7 @@ interface TaskDao {
     fun listAllAsFlow(): Flow<List<TaskEntity>>
 
     @Query("SELECT * FROM task_table WHERE id = :id")
-    suspend fun getById(id: Int): TaskEntity?
+    suspend fun getById(id: Long): TaskEntity?
 
     @Upsert
     suspend fun upsert(task: TaskEntity): Long
